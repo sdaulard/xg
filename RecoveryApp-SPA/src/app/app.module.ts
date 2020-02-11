@@ -15,6 +15,7 @@ import { AuthService } from './_services/auth.service';
 import { AuthComponent } from './components/auth/auth.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { NavLinkService } from './_services/nav-link.service';
+import { TestcedComponent } from './components/testced/testced.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NavLinkService } from './_services/nav-link.service';
     AppareilViewComponent,
     SingleAppareilComponent,
     AuthComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    TestcedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
