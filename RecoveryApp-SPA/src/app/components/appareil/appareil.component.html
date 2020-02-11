@@ -1,0 +1,35 @@
+<!--<div style="border: 1px solid red"> appareil Component </div> -->
+<!-- <li class="list-group-item"> -->
+<!-- ajout de classes CSS à un élément de maznière dynamique
+     Angular applique systématiquement la classe list-group-item
+     et selon le contenu de la variable list-group-item applique l'une ou l'autre de ces 2 classes -->
+
+  <li [ngClass]="{'list-group-item': true,
+                'list-group-item-success': appareilStatus === 'allumé',
+                'list-group-item-danger': appareilStatus === 'éteint'}">
+
+    <!--
+  <div style="width:20px;height:20px;background-color:red;"
+       *ngIf="appareilStatus === 'éteint'"></div>
+    -->
+    <!-- <h4>Appareil : {{ appareilName }} -- Etat : {{ getStatus() }}</h4>
+  appliquer un style à un objet DOM de manière dynamique  -->
+    <h4 [ngStyle]="{color: getColor()}"> Appareil : {{ appareilName }} -- Statut : {{ getStatus() }}</h4>
+    <a [routerLink]="[id]">Détail</a>
+
+    <!-- 2way binding [()]   lien à la variable appareilName en utilisant directive ngmodel   -->
+    <input type="text" class="form-control" [(ngModel)]="appareilName">
+
+    <!-- communication entre components -->
+    <button class="btn btn-sm btn-success"
+            *ngIf="appareilStatus === 'éteint'"
+            (click)="onSwitch()">
+      Allumer
+    </button>
+    <button class="btn btn-sm btn-danger"
+            *ngIf="appareilStatus === 'allumé'"
+            (click)="onSwitch()">
+      Eteindre
+    </button>
+
+  </li>

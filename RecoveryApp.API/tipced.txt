@@ -1,0 +1,21 @@
+dotnet new webapi -n RecoveryApp.API
+
+extension
+migration orm base entity
+dotnet tool install --global dotnet-ef
+verifier apres reload ap dotnet ef -h si ok 
+
+installer via nuget : Microsoft.EntityFrameworkCore.Design
+initialisation: 
+dotnet ef migrations add InitialCreate
+si ok creation du dossier migrations
+mise ajour de la base a faire ensuite  afaire pour creer le fichier RecoveryApp.db a ouvrir avec sqlite
+dotnet ef database update
+penser a 
+
+dotnet ef database drop dire y pour tout supprimer
+dotnet ef database remove 
+dotnet ef migrations remove juste apres un add si erreur avant l update
+dotnet ef migrations add nomdelamigrations
+dotnet ef migrations -h help
+dotnet ef migrations list voir tout les liste de migrations
