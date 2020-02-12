@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
-import { NavLinkService } from '../../_services/nav-link.service';
-
+import { MessageService } from '../../_services/Message.service';
 
 @Component({
     selector: 'app-auth',
@@ -11,13 +10,19 @@ import { NavLinkService } from '../../_services/nav-link.service';
 })
 
 
+
 export class AuthComponent implements OnInit {
 
   authStatus: boolean;
 
   constructor(private authService: AuthService,
-              private router: Router
-              /* private navLinkService: NavLinkService */) { }
+              private router: Router,
+              private messageService: MessageService ) {
+
+
+  }
+
+
 
   ngOnInit() {
     this.authStatus = this.authService.isAuth;
@@ -28,8 +33,12 @@ export class AuthComponent implements OnInit {
       () => {
         console.log('Sign in successful!');
         this.authStatus = this.authService.isAuth;
-        // this.navLinkService.onActionLink(0);
-        this.router.navigate(['appareils']);
+
+        // exceptionnel: générer un pseudo événement clic sur barre navigation pour la mettre à jour
+        // pas de bouton dans la barre en arrivant sur DashBoard, mais ceci va permettre de faire apparaître
+        // les choix Clients et Produits
+        this.router.navigate(['dashboard']);
+        this.messageService.sendMessage('Message from Auth Component to NavMenu Component!');
       }
     );
   }

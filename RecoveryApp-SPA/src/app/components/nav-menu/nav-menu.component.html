@@ -13,7 +13,7 @@
                 (click)="toggle()">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex"
+        <div id="nav_row" class="navbar-collapse collapse d-sm-inline-flex"
              [ngClass]="{ show: isExpanded }">
           <ul class="navbar-nav flex-grow">
             <li class="nav-item"
@@ -21,13 +21,42 @@
                 [routerLinkActiveOptions]="{ exact: true }">
               <a class="nav-link text-dark"
                  [routerLink]="[actionRouterLinkVar1]"
-                 (clic)="onActionLink1()"> {{actionRouterLinkLabelVar1}} </a>
+                 (click)="onActionLink(1)" > {{actionRouterLinkLabelVar1}} </a>
             </li>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/appareils']"> Appareils</a>
+              <a class="nav-link text-dark"
+                [routerLink]="[actionRouterLinkVar2]"
+                (click)="onActionLink(2)" > {{actionRouterLinkLabelVar2}} </a>
             </li>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/appareils']">Appareils</a>
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(3)" > {{actionRouterLinkLabelVar3}} </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(4)" > {{actionRouterLinkLabelVar4}} </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(5)" > {{actionRouterLinkLabelVar5}} </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(6)" > {{actionRouterLinkLabelVar6}} </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(7)" > {{actionRouterLinkLabelVar7}} </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark"
+              [routerLink]="[actionRouterLinkVar3]"
+              (click)="onActionLink(8)" > {{actionRouterLinkLabelVar8}} </a>
             </li>
           </ul>
         </div>
