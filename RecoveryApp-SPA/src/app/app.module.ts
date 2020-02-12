@@ -8,11 +8,14 @@ import { AppareilComponent } from './components/appareil/appareil.component';
 import { AppareilViewComponent } from './components/appareil-view/appareil-view.component';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { CentreComponent } from './components/centre/centre.component';
+import { ClientComponent } from './components/client/client.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { DashBoardComponent } from './components/dashboard/dashboard.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { ProduitComponent } from './components/produit/produit.component';
 import { ProduitsComponent } from './components/produits/produits.component';
 import { SingleAppareilComponent } from './components/single-appareil/single-appareil.component';
 
@@ -27,11 +30,14 @@ import { MessageService } from './_services/message.service';
     AppareilComponent,
     AppareilViewComponent,
     AuthComponent,
+    CentreComponent,
+    ClientComponent,
     ClientsComponent,
     DashBoardComponent,
     FourOhFourComponent,
     HomeComponent,
     NavMenuComponent,
+    ProduitComponent,
     ProduitsComponent,
     SingleAppareilComponent,
   ],
@@ -48,10 +54,13 @@ import { MessageService } from './_services/message.service';
       // { path: 'appareils', component: AppareilViewComponent },      // localhost:port/appareils
       // { path: 'appareils/:id', component: SingleAppareilComponent },      // localhost:port/appareils
       { path: 'auth', component: AuthComponent },
+      { path: 'centre', component: CentreComponent },
+      { path: 'client', component: ClientComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'dashboard', component: DashBoardComponent },
       { path: 'dashboard', component: DashBoardComponent },
       { path: 'not-found', component: FourOhFourComponent },
+      { path: 'produit', component: ProduitComponent },
       { path: 'produits', component: ProduitsComponent },
       { path: '**', redirectTo: 'not-found' }
     ])

@@ -97,8 +97,7 @@ export class NavMenuComponent implements OnDestroy {
     this.updateButttons();
   }
 
-  updateButttons()
-  {
+  updateButttons() {
     this.contextRouterLinkLabelVar1 = this.navLinkService.NavLinks.routerContextLinkLabel[0];
     this.contextRouterLinkVar1 = this.navLinkService.NavLinks.routerContextLink[0];
     this.contextRouterLinkLabelVar2 = this.navLinkService.NavLinks.routerContextLinkLabel[1];

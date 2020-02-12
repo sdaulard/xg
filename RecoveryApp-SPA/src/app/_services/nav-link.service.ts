@@ -3,11 +3,10 @@ import { asLiteral } from '@angular/compiler/src/render3/view/util';
 import { log } from 'util';
 
 interface ContextType {
-  selectedContext: string  ;
   routerContextLink: Array <string>;
   routerContextLinkLabel: Array <string>;
   onContextLink: Map<string, ( link: string, context: ContextType) => void >;
-  selectedAction: string  ;
+  currentContext: string  ;
   routerActionLink: Array <string>;
   routerActionLinkLabel: Array <string>;
   onActionLink: Map<string, ( link: string, context: ContextType) => void >;
@@ -37,11 +36,10 @@ function onHomeState(onLink: string) {
 
 @Injectable()
 export class NavLinks {
-  selectedContext: string  ;
   routerContextLink: Array <string>;
   routerContextLinkLabel: Array <string>;
   onContextLink: Map<string, ( link: string, context: ContextType) => void >;
-  selectedAction: string  ;
+  currentContext: string  ;
   routerActionLink: Array <string>;
   routerActionLinkLabel: Array <string>;
   onActionLink: Map<string, ( link: string, context: ContextType) => void >;
@@ -60,7 +58,7 @@ export class NavLinkService implements OnInit {
     this.NavLinks.routerActionLinkLabel = new Array(8);
     this.NavLinks.routerActionLink = new Array(8);
 
-    this.NavLinks.selectedAction = 'Home';
+    this.NavLinks.currentContext = 'Home';
     this.NavLinks.routerActionLinkLabel[0] = 'Login';
     this.NavLinks.routerActionLinkLabel[1] = '';
     this.NavLinks.routerActionLinkLabel[2] = '';
@@ -80,16 +78,18 @@ export class NavLinkService implements OnInit {
     this.NavLinks.routerActionLink[7] = '';
 
     this.NavLinks.onActionLink = new Map<string, (para: string) => void> ();
-    this.NavLinks.onActionLink.set('Home', this.onLoginAction);
-    this.NavLinks.onActionLink.set('Login', this.onLoginAction);
-    this.NavLinks.onActionLink.set('DashBoard', this.onDashBoardAction);
-    this.NavLinks.onActionLink.set('Clients', this.onClientsAction);
-    this.NavLinks.onActionLink.set('Produits', this.onProduitsAction);
+    this.NavLinks.onActionLink.set('Home', this.onLoginContext);
+    this.NavLinks.onActionLink.set('Login', this.onLoginContext);
+    this.NavLinks.onActionLink.set('DashBoard', this.onDashBoardContext);
+    this.NavLinks.onActionLink.set('Clients', this.onClientsContext);
+    this.NavLinks.onActionLink.set('Produit', this.onProduitContext);
+    this.NavLinks.onActionLink.set('Produits', this.onProduitsContext);
+    this.NavLinks.onActionLink.set('Client', this.onClientContext);
+    this.NavLinks.onActionLink.set('Centre', this.onCentreContext);
 
     this.NavLinks.onContextLink = new Map<string, (para: string) => void> ();
 
 
-    this.NavLinks.selectedContext = '';
     this.NavLinks.routerContextLinkLabel[0] = '';
     this.NavLinks.routerContextLinkLabel[1] = '';
     this.NavLinks.routerContextLinkLabel[2] = '';
@@ -109,34 +109,33 @@ export class NavLinkService implements OnInit {
     this.NavLinks.routerContextLink[7] = '';
   }
 
-  onLoginAction(onLink: string, contextRef: ContextType)     {
+  onLoginContext(onLink: string, contextRef: ContextType)     {
     switch (onLink) {
       case '': {
         // cas exception quand le login a réussi
-        contextRef.selectedAction = 'DashBoard';
+        contextRef.currentContext = 'DashBoard';
         contextRef.routerActionLinkLabel[0] = 'Clients';
-        contextRef.routerActionLink[0] = '/clients';
+        contextRef.routerActionLink[0] = 'clients';
         contextRef.routerActionLinkLabel[1] = 'Produits';
-        contextRef.routerActionLink[1] = '/produits';
+        contextRef.routerActionLink[1] = 'produits';
         break;
       }
 
-      case 'Login': {
-
-        switch (contextRef.selectedAction) {
+      case 'auth': {
+        switch (contextRef.currentContext) {
           case 'Home': {
-              contextRef.selectedAction = 'Login';
+              contextRef.currentContext = 'Login';
               contextRef.routerActionLinkLabel[0] = '';
               contextRef.routerActionLink[0] = '';
               break;
           }
 
           case 'Login': {
-            contextRef.selectedAction = 'DashBoard';
+            contextRef.currentContext = 'DashBoard';
             contextRef.routerActionLinkLabel[0] = 'Clients';
-            contextRef.routerActionLink[0] = '/clients';
+            contextRef.routerActionLink[0] = 'clients';
             contextRef.routerActionLinkLabel[1] = 'Produits';
-            contextRef.routerActionLink[1] = '/produits';
+            contextRef.routerActionLink[1] = 'produits';
             break;
           }
 
@@ -146,108 +145,185 @@ export class NavLinkService implements OnInit {
         break;
       }
 
-      case 'login': {
-        // rien à faire, on y est déjà
-        break;
-      }
-
       default: {
         break;
       }
     }
   }
 
-
-
-  onClientsAction(onLink: string, contextRef: ContextType)     {
+  onDashBoardContext(onLink: string, contextRef: ContextType)     {
     switch (onLink) {
-      case 'Clients': {
-
-        switch (contextRef.selectedAction) {
-          case 'DashBoard': {
-              contextRef.selectedAction = 'Clients';
-              contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
-              contextRef.routerActionLink[0] = '/proginterv';
-              contextRef.routerActionLinkLabel[1] = '';
-              contextRef.routerActionLink[1] = '';
-
-              contextRef.routerContextLinkLabel[0] = 'DashBoard';
-              contextRef.routerContextLink[0] = '/dashboard';
-              break;
-          }
-
-          default:
-              break;
-        }
-        break;
-      }
-
-      case 'login': {
-        // rien à faire, on y est déjà
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
-  }
-
-  onDashBoardAction(onLink: string, contextRef: ContextType)     {
-    switch (onLink) {
-      case 'Clients': {
-        contextRef.selectedAction = 'Clients';
-        contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
-        contextRef.routerActionLink[0] = '/proginterv';
-        contextRef.routerActionLinkLabel[1] = '';
-        contextRef.routerActionLink[1] = '';
+      case 'clients': {
+        contextRef.currentContext = 'Clients';
+        contextRef.routerActionLinkLabel[0] = 'Centre';
+        contextRef.routerActionLink[0] = 'centre';
+        contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
 
         contextRef.routerContextLinkLabel[0] = 'DashBoard';
-        contextRef.routerContextLink[0] = '/dashboard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[2] = 'Client MFRA';
+        contextRef.routerContextLink[2] = 'client';
         break;
       }
 
-      case 'Produits': {
-        contextRef.selectedAction = 'Produits';
-        contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
-        contextRef.routerActionLink[0] = '/proginterv';
-        contextRef.routerActionLinkLabel[1] = '';
-        contextRef.routerActionLink[1] = '';
+      case 'produits': {
+        contextRef.currentContext = 'Produits';
+        contextRef.routerActionLinkLabel[0] = 'Produit';
+        contextRef.routerActionLink[0] = 'produit';
+        contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
 
         contextRef.routerContextLinkLabel[0] = 'DashBoard';
-        contextRef.routerContextLink[0] = '/dashboard';
+        contextRef.routerContextLink[0] = 'dashboard';
         // sauter un indice réserve un saut de ligne blanche
         break;
       }
 
-        default:
-            break;
+      case 'produit': {
+        contextRef.currentContext = 'Produit';
+        contextRef.routerActionLinkLabel[0] = 'LogEvent';
+        contextRef.routerActionLink[0] = 'logevent';
+        contextRef.routerActionLinkLabel[1] = 'prog intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        contextRef.routerContextLinkLabel[5] = 'Produit Y du centre';
+        contextRef.routerContextLink[5] = 'produit';
+        break;
+      }
+
+      case 'centre': {
+        contextRef.currentContext = 'Centre';
+        contextRef.routerActionLinkLabel[0] = 'Produit';
+        contextRef.routerActionLink[0] = 'produit';
+        contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        break;
+      }
+
+
+      default:
+          break;
       }
   }
 
 
-  onProduitsAction(onLink: string, contextRef: ContextType)     {
+  onClientsContext(onLink: string, contextRef: ContextType)     {
     switch (onLink) {
-      case 'Produits': {
+      case 'centre': {
+              contextRef.currentContext = 'Centre';
+              contextRef.routerActionLinkLabel[0] = 'Produit';
+              contextRef.routerActionLink[0] = 'produit';
+              contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+              contextRef.routerActionLink[1] = 'proginterv';
 
-        switch (contextRef.selectedAction) {
-          case 'DashBoard': {
-              contextRef.selectedAction = 'Produits';
-              contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
-              contextRef.routerActionLink[0] = '/proginterv';
-              contextRef.routerActionLinkLabel[1] = '';
-              contextRef.routerActionLink[1] = '';
+              contextRef.routerContextLinkLabel[0] = 'DashBoard';
+              contextRef.routerContextLink[0] = 'dashboard';
+              contextRef.routerContextLinkLabel[3] = 'Centre A';
+              contextRef.routerContextLink[3] = 'centre';
+              contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+              contextRef.routerContextLink[4] = 'produit';
               break;
-          }
+      }
 
-          default:
-              break;
-        }
+      default: {
+        break;
+      }
+    }
+  }
+
+  onCentreContext(onLink: string, contextRef: ContextType)     {
+    switch (onLink) {
+      case 'produit': {
+              contextRef.currentContext = 'Produit';
+              contextRef.routerActionLinkLabel[0] = 'LogEvent';
+              contextRef.routerActionLink[0] = 'logevent';
+              contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+              contextRef.routerActionLink[1] = 'proginterv';
+
+              contextRef.routerContextLinkLabel[0] = 'DashBoard';
+              contextRef.routerContextLink[0] = 'dashboard';
+              contextRef.routerContextLinkLabel[3] = 'Centre A';
+              contextRef.routerContextLink[3] = 'centre';
+              contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+              contextRef.routerContextLink[4] = 'produit';
+              contextRef.routerContextLinkLabel[5] = 'Produit Y du centre';
+              contextRef.routerContextLink[5] = 'produit';
+                    break;
+      }
+
+      case 'dashboard': {
+        contextRef.currentContext = 'DashBoard';
+        contextRef.routerActionLinkLabel[0] = 'Clients';
+        contextRef.routerActionLink[0] = 'clients';
+        contextRef.routerActionLinkLabel[1] = 'Produits';
+        contextRef.routerActionLink[1] = 'produits';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        contextRef.routerContextLinkLabel[5] = 'Produit Y du centre';
+        contextRef.routerContextLink[5] = 'produit';
         break;
       }
 
-      case 'login': {
-        // rien à faire, on y est déjà
+
+      default:
+          break;
+    }
+  }
+
+  onProduitContext(onLink: string, contextRef: ContextType)     {
+    switch (onLink) {
+      case 'produit': {
+        contextRef.currentContext = 'Produit';
+        contextRef.routerActionLinkLabel[0] = 'LogEvent';
+        contextRef.routerActionLink[0] = 'logevent';
+        contextRef.routerActionLinkLabel[1] = 'prog intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        contextRef.routerContextLinkLabel[5] = 'Produit Y du centre';
+        contextRef.routerContextLink[5] = 'produit';
+        break;
+      }
+
+      case 'dashboard': {
+        contextRef.currentContext = 'DashBoard';
+        contextRef.routerActionLinkLabel[0] = 'Clients';
+        contextRef.routerActionLink[0] = 'clients';
+        contextRef.routerActionLinkLabel[1] = 'Produits';
+        contextRef.routerActionLink[1] = 'produits';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        contextRef.routerContextLinkLabel[5] = 'Produit Y du centre';
+        contextRef.routerContextLink[5] = 'produit';
         break;
       }
 
@@ -256,15 +332,46 @@ export class NavLinkService implements OnInit {
       }
     }
   }
+
+
+
+
+  onProduitsContext(onLink: string, contextRef: ContextType)     {
+    switch (onLink) {
+      case 'produit': {
+        contextRef.currentContext = 'Produit';
+        contextRef.routerActionLinkLabel[0] = 'LogEvent';
+        contextRef.routerActionLink[0] = 'logevent';
+        contextRef.routerActionLinkLabel[1] = 'Prog Intervention';
+        contextRef.routerActionLink[1] = 'proginterv';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = 'dashboard';
+        contextRef.routerContextLinkLabel[3] = 'Centre A';
+        contextRef.routerContextLink[3] = 'centre';
+        contextRef.routerContextLinkLabel[4] = 'Produits du centre';
+        contextRef.routerContextLink[4] = 'produit';
+        contextRef.routerContextLinkLabel[5] = 'Produit X du centre';
+        contextRef.routerContextLink[5] = 'produit';
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
+  }
+
+
 
 
   onActionLink(linkId: number) {
     if (linkId >= 1 && linkId <= 8) {
       if (this.NavLinks.routerActionLinkLabel[linkId - 1] === '') {
-        this.onLoginAction('', this.NavLinks);
+        this.onLoginContext('', this.NavLinks);
       } else {
-        this.NavLinks.onActionLink.get(this.NavLinks.selectedAction)
-                            (this.NavLinks.routerActionLinkLabel[linkId - 1], this.NavLinks);
+        this.NavLinks.onActionLink.get(this.NavLinks.currentContext)
+                            (this.NavLinks.routerActionLink[linkId - 1], this.NavLinks);
       }
     }
   }
@@ -272,10 +379,10 @@ export class NavLinkService implements OnInit {
   onContextLink(linkId: number) {
     if (linkId >= 1 && linkId <= 8) {
       if (this.NavLinks.routerContextLinkLabel[linkId - 1] === '') {
-        this.onLoginAction('', this.NavLinks);
+        this.onLoginContext('', this.NavLinks);
       } else {
-        this.NavLinks.onActionLink.get(this.NavLinks.selectedAction)
-                            (this.NavLinks.routerContextLinkLabel[linkId - 1], this.NavLinks);
+        this.NavLinks.onActionLink.get(this.NavLinks.currentContext)
+                            (this.NavLinks.routerContextLink[linkId - 1], this.NavLinks);
       }
     }
   }
