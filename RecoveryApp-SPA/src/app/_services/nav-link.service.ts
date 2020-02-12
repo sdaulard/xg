@@ -3,9 +3,13 @@ import { asLiteral } from '@angular/compiler/src/render3/view/util';
 import { log } from 'util';
 
 interface ContextType {
+  selectedContext: string  ;
+  routerContextLink: Array <string>;
+  routerContextLinkLabel: Array <string>;
+  onContextLink: Map<string, ( link: string, context: ContextType) => void >;
   selectedAction: string  ;
-  routerLink: Array <string>;
-  routerLinkLabel: Array <string>;
+  routerActionLink: Array <string>;
+  routerActionLinkLabel: Array <string>;
   onActionLink: Map<string, ( link: string, context: ContextType) => void >;
 }
 
@@ -13,13 +17,13 @@ interface ContextType {
 function onHomeState(onLink: string) {
   switch (onLink) {
     case 'home': {
-      this.contextActionLinks.selectedContext = 'login';
-      // this.contextActionLinks.onlinkEvent = onLoginState;
+      this.NavLinks.selectedContext = 'login';
+      // this.NavLinks.onlinkEvent = onLoginState;
       break;
     }
     case 'login': {
-      this.contextActionLinks.selectedContext = 'DashBoard';
-      // this.contextActionLinks.onlinkEvent = onLoginState;
+      this.NavLinks.selectedContext = 'DashBoard';
+      // this.NavLinks.onlinkEvent = onLoginState;
       break;
     }
 
@@ -32,54 +36,77 @@ function onHomeState(onLink: string) {
 
 
 @Injectable()
-export class ContextLinks {
+export class NavLinks {
+  selectedContext: string  ;
+  routerContextLink: Array <string>;
+  routerContextLinkLabel: Array <string>;
+  onContextLink: Map<string, ( link: string, context: ContextType) => void >;
   selectedAction: string  ;
-  routerLink: Array <string>;
-  routerLinkLabel: Array <string>;
+  routerActionLink: Array <string>;
+  routerActionLinkLabel: Array <string>;
   onActionLink: Map<string, ( link: string, context: ContextType) => void >;
 }
 
-
 export class NavLinkService implements OnInit {
 
-  actionLinks: any;
-  contextActionLinks: {
-    selectedAction: string  ;
-    routerLink: Array <string>;
-    routerLinkLabel: Array <string>;
-    onActionLink: Map<string, ( link: string, context: ContextType) => void >};
+  NavLinks: ContextType;
 
   constructor() {
-    this.contextActionLinks = new ContextLinks();
+    this.NavLinks = new NavLinks();
 
-    this.contextActionLinks.routerLinkLabel = new Array(8);
-    this.contextActionLinks.routerLink = new Array(8);
+    this.NavLinks.routerContextLinkLabel = new Array(8);
+    this.NavLinks.routerContextLink = new Array(8);
 
-    this.contextActionLinks.selectedAction = 'Home';
-    this.contextActionLinks.routerLinkLabel[0] = 'Login';
-    this.contextActionLinks.routerLinkLabel[1] = '';
-    this.contextActionLinks.routerLinkLabel[2] = '';
-    this.contextActionLinks.routerLinkLabel[3] = '';
-    this.contextActionLinks.routerLinkLabel[4] = '';
-    this.contextActionLinks.routerLinkLabel[5] = '';
-    this.contextActionLinks.routerLinkLabel[6] = '';
-    this.contextActionLinks.routerLinkLabel[7] = '';
+    this.NavLinks.routerActionLinkLabel = new Array(8);
+    this.NavLinks.routerActionLink = new Array(8);
 
-    this.contextActionLinks.routerLink[0] = 'auth';
-    this.contextActionLinks.routerLink[1] = '';
-    this.contextActionLinks.routerLink[2] = '';
-    this.contextActionLinks.routerLink[3] = '';
-    this.contextActionLinks.routerLink[4] = '';
-    this.contextActionLinks.routerLink[5] = '';
-    this.contextActionLinks.routerLink[6] = '';
-    this.contextActionLinks.routerLink[7] = '';
+    this.NavLinks.selectedAction = 'Home';
+    this.NavLinks.routerActionLinkLabel[0] = 'Login';
+    this.NavLinks.routerActionLinkLabel[1] = '';
+    this.NavLinks.routerActionLinkLabel[2] = '';
+    this.NavLinks.routerActionLinkLabel[3] = '';
+    this.NavLinks.routerActionLinkLabel[4] = '';
+    this.NavLinks.routerActionLinkLabel[5] = '';
+    this.NavLinks.routerActionLinkLabel[6] = '';
+    this.NavLinks.routerActionLinkLabel[7] = '';
 
-    this.contextActionLinks.onActionLink = new Map<string, (para: string) => void> ();
-    this.contextActionLinks.onActionLink.set('Home', this.onLoginAction);
-    this.contextActionLinks.onActionLink.set('Login', this.onLoginAction);
-    this.contextActionLinks.onActionLink.set('DashBoard', this.onDashBoardAction);
-    this.contextActionLinks.onActionLink.set('Clients', this.onClientsAction);
-    this.contextActionLinks.onActionLink.set('Produits', this.onProduitsAction);
+    this.NavLinks.routerActionLink[0] = 'auth';
+    this.NavLinks.routerActionLink[1] = '';
+    this.NavLinks.routerActionLink[2] = '';
+    this.NavLinks.routerActionLink[3] = '';
+    this.NavLinks.routerActionLink[4] = '';
+    this.NavLinks.routerActionLink[5] = '';
+    this.NavLinks.routerActionLink[6] = '';
+    this.NavLinks.routerActionLink[7] = '';
+
+    this.NavLinks.onActionLink = new Map<string, (para: string) => void> ();
+    this.NavLinks.onActionLink.set('Home', this.onLoginAction);
+    this.NavLinks.onActionLink.set('Login', this.onLoginAction);
+    this.NavLinks.onActionLink.set('DashBoard', this.onDashBoardAction);
+    this.NavLinks.onActionLink.set('Clients', this.onClientsAction);
+    this.NavLinks.onActionLink.set('Produits', this.onProduitsAction);
+
+    this.NavLinks.onContextLink = new Map<string, (para: string) => void> ();
+
+
+    this.NavLinks.selectedContext = '';
+    this.NavLinks.routerContextLinkLabel[0] = '';
+    this.NavLinks.routerContextLinkLabel[1] = '';
+    this.NavLinks.routerContextLinkLabel[2] = '';
+    this.NavLinks.routerContextLinkLabel[3] = '';
+    this.NavLinks.routerContextLinkLabel[4] = '';
+    this.NavLinks.routerContextLinkLabel[5] = '';
+    this.NavLinks.routerContextLinkLabel[6] = '';
+    this.NavLinks.routerContextLinkLabel[7] = '';
+
+    this.NavLinks.routerContextLink[0] = 'auth';
+    this.NavLinks.routerContextLink[1] = '';
+    this.NavLinks.routerContextLink[2] = '';
+    this.NavLinks.routerContextLink[3] = '';
+    this.NavLinks.routerContextLink[4] = '';
+    this.NavLinks.routerContextLink[5] = '';
+    this.NavLinks.routerContextLink[6] = '';
+    this.NavLinks.routerContextLink[7] = '';
   }
 
   onLoginAction(onLink: string, contextRef: ContextType)     {
@@ -87,10 +114,10 @@ export class NavLinkService implements OnInit {
       case '': {
         // cas exception quand le login a réussi
         contextRef.selectedAction = 'DashBoard';
-        contextRef.routerLinkLabel[0] = 'Clients';
-        contextRef.routerLink[0] = '/clients';
-        contextRef.routerLinkLabel[1] = 'Produits';
-        contextRef.routerLink[1] = '/produits';
+        contextRef.routerActionLinkLabel[0] = 'Clients';
+        contextRef.routerActionLink[0] = '/clients';
+        contextRef.routerActionLinkLabel[1] = 'Produits';
+        contextRef.routerActionLink[1] = '/produits';
         break;
       }
 
@@ -99,17 +126,17 @@ export class NavLinkService implements OnInit {
         switch (contextRef.selectedAction) {
           case 'Home': {
               contextRef.selectedAction = 'Login';
-              contextRef.routerLinkLabel[0] = '';
-              contextRef.routerLink[0] = '';
+              contextRef.routerActionLinkLabel[0] = '';
+              contextRef.routerActionLink[0] = '';
               break;
           }
 
           case 'Login': {
             contextRef.selectedAction = 'DashBoard';
-            contextRef.routerLinkLabel[0] = 'Clients';
-            contextRef.routerLink[0] = '/clients';
-            contextRef.routerLinkLabel[1] = 'Produits';
-            contextRef.routerLink[1] = '/produits';
+            contextRef.routerActionLinkLabel[0] = 'Clients';
+            contextRef.routerActionLink[0] = '/clients';
+            contextRef.routerActionLinkLabel[1] = 'Produits';
+            contextRef.routerActionLink[1] = '/produits';
             break;
           }
 
@@ -139,10 +166,13 @@ export class NavLinkService implements OnInit {
         switch (contextRef.selectedAction) {
           case 'DashBoard': {
               contextRef.selectedAction = 'Clients';
-              contextRef.routerLinkLabel[0] = 'Prog Intervention';
-              contextRef.routerLink[0] = '/proginterv';
-              contextRef.routerLinkLabel[1] = '';
-              contextRef.routerLink[1] = '';
+              contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
+              contextRef.routerActionLink[0] = '/proginterv';
+              contextRef.routerActionLinkLabel[1] = '';
+              contextRef.routerActionLink[1] = '';
+
+              contextRef.routerContextLinkLabel[0] = 'DashBoard';
+              contextRef.routerContextLink[0] = '/dashboard';
               break;
           }
 
@@ -167,19 +197,26 @@ export class NavLinkService implements OnInit {
     switch (onLink) {
       case 'Clients': {
         contextRef.selectedAction = 'Clients';
-        contextRef.routerLinkLabel[0] = 'Prog Intervention';
-        contextRef.routerLink[0] = '/proginterv';
-        contextRef.routerLinkLabel[1] = '';
-        contextRef.routerLink[1] = '';
+        contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
+        contextRef.routerActionLink[0] = '/proginterv';
+        contextRef.routerActionLinkLabel[1] = '';
+        contextRef.routerActionLink[1] = '';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = '/dashboard';
         break;
       }
 
       case 'Produits': {
         contextRef.selectedAction = 'Produits';
-        contextRef.routerLinkLabel[0] = 'Prog Intervention';
-        contextRef.routerLink[0] = '/proginterv';
-        contextRef.routerLinkLabel[1] = '';
-        contextRef.routerLink[1] = '';
+        contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
+        contextRef.routerActionLink[0] = '/proginterv';
+        contextRef.routerActionLinkLabel[1] = '';
+        contextRef.routerActionLink[1] = '';
+
+        contextRef.routerContextLinkLabel[0] = 'DashBoard';
+        contextRef.routerContextLink[0] = '/dashboard';
+        // sauter un indice réserve un saut de ligne blanche
         break;
       }
 
@@ -196,10 +233,10 @@ export class NavLinkService implements OnInit {
         switch (contextRef.selectedAction) {
           case 'DashBoard': {
               contextRef.selectedAction = 'Produits';
-              contextRef.routerLinkLabel[0] = 'Prog Intervention';
-              contextRef.routerLink[0] = '/proginterv';
-              contextRef.routerLinkLabel[1] = '';
-              contextRef.routerLink[1] = '';
+              contextRef.routerActionLinkLabel[0] = 'Prog Intervention';
+              contextRef.routerActionLink[0] = '/proginterv';
+              contextRef.routerActionLinkLabel[1] = '';
+              contextRef.routerActionLink[1] = '';
               break;
           }
 
@@ -223,26 +260,27 @@ export class NavLinkService implements OnInit {
 
   onActionLink(linkId: number) {
     if (linkId >= 1 && linkId <= 8) {
-      if (this.contextActionLinks.routerLinkLabel[linkId - 1] === '') {
-        this.onLoginAction('', this.contextActionLinks);
+      if (this.NavLinks.routerActionLinkLabel[linkId - 1] === '') {
+        this.onLoginAction('', this.NavLinks);
       } else {
-        this.contextActionLinks.onActionLink.get(this.contextActionLinks.selectedAction)
-                            (this.contextActionLinks.routerLinkLabel[linkId - 1], this.contextActionLinks);
+        this.NavLinks.onActionLink.get(this.NavLinks.selectedAction)
+                            (this.NavLinks.routerActionLinkLabel[linkId - 1], this.NavLinks);
       }
     }
   }
 
-
-  ngOnInit() {
-    this.actionLinks = [
-      {
-        id: 1,
-        linkName: '',
-        linkRoute: ''
+  onContextLink(linkId: number) {
+    if (linkId >= 1 && linkId <= 8) {
+      if (this.NavLinks.routerContextLinkLabel[linkId - 1] === '') {
+        this.onLoginAction('', this.NavLinks);
+      } else {
+        this.NavLinks.onActionLink.get(this.NavLinks.selectedAction)
+                            (this.NavLinks.routerContextLinkLabel[linkId - 1], this.NavLinks);
       }
-    ];
-
+    }
   }
+
+  ngOnInit() {  }
 }
 
 

@@ -72,17 +72,48 @@
               <li class="nav-item"
                   [routerLinkActive]="['link-active']"
                   [routerLinkActiveOptions]="{ exact: true }">
-                <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar1]"
+                  (click)="onContextLink(1)" > {{contextRouterLinkLabelVar1}} </a>
               </li>
             </ul>
             <ul class="nav flex-column">
               <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/auth']">Login</a>
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar2]"
+                  (click)="onContextLink(2)" > {{contextRouterLinkLabelVar2}} </a>
               </li>
             </ul>
             <ul class="nav flex-column">
               <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/appareils']">Appareils</a>
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar3]"
+                  (click)="onContextLink(3)" > {{contextRouterLinkLabelVar3}} </a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar4]"
+                  (click)="onContextLink(4)" > {{contextRouterLinkLabelVar4}} </a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar5]"
+                  (click)="onContextLink(5)" > {{contextRouterLinkLabelVar5}} </a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar6]"
+                  (click)="onContextLink(6)" > {{contextRouterLinkLabelVar6}} </a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar7]"
+                  (click)="onContextLink(7)" > {{contextRouterLinkLabelVar7}} </a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark"
+                  [routerLink]="[contextRouterLinkVar8]"
+                  (click)="onContextLink(8)" > {{contextRouterLinkLabelVar8}} </a>
               </li>
             </ul>
           </div>

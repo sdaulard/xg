@@ -31,12 +31,12 @@ export class NavMenuComponent implements OnDestroy {
         });
   }
 
-  public actionRouterLinkVar1  = this.navLinkService.contextActionLinks.routerLink[0];
-  public actionRouterLinkLabelVar1 = this.navLinkService.contextActionLinks.routerLinkLabel[0];
-  public actionRouterLinkVar2  = this.navLinkService.contextActionLinks.routerLinkLabel[1];
-  public actionRouterLinkLabelVar2 = this.navLinkService.contextActionLinks.routerLink[1];
-  public actionRouterLinkVar3  = this.navLinkService.contextActionLinks.routerLinkLabel[2];
-  public actionRouterLinkLabelVar3 = this.navLinkService.contextActionLinks.routerLink[2];
+  public actionRouterLinkVar1  = this.navLinkService.NavLinks.routerActionLink[0];
+  public actionRouterLinkLabelVar1 = this.navLinkService.NavLinks.routerActionLinkLabel[0];
+  public actionRouterLinkVar2  = this.navLinkService.NavLinks.routerActionLinkLabel[1];
+  public actionRouterLinkLabelVar2 = this.navLinkService.NavLinks.routerActionLink[1];
+  public actionRouterLinkVar3  = this.navLinkService.NavLinks.routerActionLinkLabel[2];
+  public actionRouterLinkLabelVar3 = this.navLinkService.NavLinks.routerActionLink[2];
   public actionRouterLinkVar4  = '';
   public actionRouterLinkLabelVar4 = '';
   public actionRouterLinkVar5  = '';
@@ -47,6 +47,23 @@ export class NavMenuComponent implements OnDestroy {
   public actionRouterLinkLabelVar7 = '';
   public actionRouterLinkVar8  = '';
   public actionRouterLinkLabelVar8 = '';
+
+  public contextRouterLinkVar1  = this.navLinkService.NavLinks.routerContextLink[0];
+  public contextRouterLinkLabelVar1 = this.navLinkService.NavLinks.routerContextLinkLabel[0];
+  public contextRouterLinkVar2  = this.navLinkService.NavLinks.routerContextLinkLabel[1];
+  public contextRouterLinkLabelVar2 = this.navLinkService.NavLinks.routerContextLink[1];
+  public contextRouterLinkVar3  = this.navLinkService.NavLinks.routerContextLinkLabel[2];
+  public contextRouterLinkLabelVar3 = this.navLinkService.NavLinks.routerContextLink[2];
+  public contextRouterLinkVar4  = '';
+  public contextRouterLinkLabelVar4 = '';
+  public contextRouterLinkVar5  = '';
+  public contextRouterLinkLabelVar5 = '';
+  public contextRouterLinkVar6  = '';
+  public contextRouterLinkLabelVar6 = '';
+  public contextRouterLinkVar7  = '';
+  public contextRouterLinkLabelVar7 = '';
+  public contextRouterLinkVar8  = '';
+  public contextRouterLinkLabelVar8 = '';
 
   isExpanded = false;
 
@@ -71,23 +88,50 @@ export class NavMenuComponent implements OnDestroy {
 
   public onActionLink( rank: number  ) {
     this.navLinkService.onActionLink(rank);
-    this.actionRouterLinkLabelVar1 = this.navLinkService.contextActionLinks.routerLinkLabel[0];
-    this.actionRouterLinkVar1 = this.navLinkService.contextActionLinks.routerLink[0];
-    this.actionRouterLinkLabelVar2 = this.navLinkService.contextActionLinks.routerLinkLabel[1];
-    this.actionRouterLinkVar2 = this.navLinkService.contextActionLinks.routerLink[1];
-    this.actionRouterLinkLabelVar3 = this.navLinkService.contextActionLinks.routerLinkLabel[2];
-    this.actionRouterLinkVar3 = this.navLinkService.contextActionLinks.routerLink[2];
-    this.actionRouterLinkLabelVar4 = this.navLinkService.contextActionLinks.routerLinkLabel[3];
-    this.actionRouterLinkVar4 = this.navLinkService.contextActionLinks.routerLink[3];
-    this.actionRouterLinkLabelVar5 = this.navLinkService.contextActionLinks.routerLinkLabel[4];
-    this.actionRouterLinkVar5 = this.navLinkService.contextActionLinks.routerLink[4];
-    this.actionRouterLinkLabelVar6 = this.navLinkService.contextActionLinks.routerLinkLabel[5];
-    this.actionRouterLinkVar6 = this.navLinkService.contextActionLinks.routerLink[5];
-    this.actionRouterLinkLabelVar7 = this.navLinkService.contextActionLinks.routerLinkLabel[6];
-    this.actionRouterLinkVar7 = this.navLinkService.contextActionLinks.routerLink[6];
-    this.actionRouterLinkLabelVar8 = this.navLinkService.contextActionLinks.routerLinkLabel[7];
-    this.actionRouterLinkVar8 = this.navLinkService.contextActionLinks.routerLink[7];
+    this.updateButttons();
     // window.open('https:/localhost:4200/appareils', '_blank');
+  }
+
+  public onContextLink( rank: number  ) {
+    this.navLinkService.onContextLink(rank);
+    this.updateButttons();
+  }
+
+  updateButttons()
+  {
+    this.contextRouterLinkLabelVar1 = this.navLinkService.NavLinks.routerContextLinkLabel[0];
+    this.contextRouterLinkVar1 = this.navLinkService.NavLinks.routerContextLink[0];
+    this.contextRouterLinkLabelVar2 = this.navLinkService.NavLinks.routerContextLinkLabel[1];
+    this.contextRouterLinkVar2 = this.navLinkService.NavLinks.routerContextLink[1];
+    this.contextRouterLinkLabelVar3 = this.navLinkService.NavLinks.routerContextLinkLabel[2];
+    this.contextRouterLinkVar3 = this.navLinkService.NavLinks.routerContextLink[2];
+    this.contextRouterLinkLabelVar4 = this.navLinkService.NavLinks.routerContextLinkLabel[3];
+    this.contextRouterLinkVar4 = this.navLinkService.NavLinks.routerContextLink[3];
+    this.contextRouterLinkLabelVar5 = this.navLinkService.NavLinks.routerContextLinkLabel[4];
+    this.contextRouterLinkVar5 = this.navLinkService.NavLinks.routerContextLink[4];
+    this.contextRouterLinkLabelVar6 = this.navLinkService.NavLinks.routerContextLinkLabel[5];
+    this.contextRouterLinkVar6 = this.navLinkService.NavLinks.routerContextLink[5];
+    this.contextRouterLinkLabelVar7 = this.navLinkService.NavLinks.routerContextLinkLabel[6];
+    this.contextRouterLinkVar7 = this.navLinkService.NavLinks.routerContextLink[6];
+    this.contextRouterLinkLabelVar8 = this.navLinkService.NavLinks.routerContextLinkLabel[7];
+    this.contextRouterLinkVar8 = this.navLinkService.NavLinks.routerContextLink[7];
+
+    this.actionRouterLinkLabelVar1 = this.navLinkService.NavLinks.routerActionLinkLabel[0];
+    this.actionRouterLinkVar1 = this.navLinkService.NavLinks.routerActionLink[0];
+    this.actionRouterLinkLabelVar2 = this.navLinkService.NavLinks.routerActionLinkLabel[1];
+    this.actionRouterLinkVar2 = this.navLinkService.NavLinks.routerActionLink[1];
+    this.actionRouterLinkLabelVar3 = this.navLinkService.NavLinks.routerActionLinkLabel[2];
+    this.actionRouterLinkVar3 = this.navLinkService.NavLinks.routerActionLink[2];
+    this.actionRouterLinkLabelVar4 = this.navLinkService.NavLinks.routerActionLinkLabel[3];
+    this.actionRouterLinkVar4 = this.navLinkService.NavLinks.routerActionLink[3];
+    this.actionRouterLinkLabelVar5 = this.navLinkService.NavLinks.routerActionLinkLabel[4];
+    this.actionRouterLinkVar5 = this.navLinkService.NavLinks.routerActionLink[4];
+    this.actionRouterLinkLabelVar6 = this.navLinkService.NavLinks.routerActionLinkLabel[5];
+    this.actionRouterLinkVar6 = this.navLinkService.NavLinks.routerActionLink[5];
+    this.actionRouterLinkLabelVar7 = this.navLinkService.NavLinks.routerActionLinkLabel[6];
+    this.actionRouterLinkVar7 = this.navLinkService.NavLinks.routerActionLink[6];
+    this.actionRouterLinkLabelVar8 = this.navLinkService.NavLinks.routerActionLinkLabel[7];
+    this.actionRouterLinkVar8 = this.navLinkService.NavLinks.routerActionLink[7];
   }
 
   ngOnDestroy() {
