@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    selector: 'app-clients',
+    templateUrl: './clients.component.html',
+    styleUrls: ['./clients.component.scss']
 })
 
 
-export class DashBoardComponent {
+export class ClientsComponent {
 
   authStatus: boolean;
 

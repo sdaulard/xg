@@ -8,10 +8,12 @@ import { AppareilComponent } from './components/appareil/appareil.component';
 import { AppareilViewComponent } from './components/appareil-view/appareil-view.component';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { ClientsComponent } from './components/clients/clients.component';
 import { DashBoardComponent } from './components/dashboard/dashboard.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { ProduitsComponent } from './components/produits/produits.component';
 import { SingleAppareilComponent } from './components/single-appareil/single-appareil.component';
 
 import { AppareilService } from './_services/appareil.service';
@@ -22,15 +24,16 @@ import { MessageService } from './_services/message.service';
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
     AppareilComponent,
     AppareilViewComponent,
-    SingleAppareilComponent,
     AuthComponent,
-    HomeComponent,
+    ClientsComponent,
     DashBoardComponent,
     FourOhFourComponent,
+    HomeComponent,
+    NavMenuComponent,
+    ProduitsComponent,
+    SingleAppareilComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,8 +48,11 @@ import { MessageService } from './_services/message.service';
       // { path: 'appareils', component: AppareilViewComponent },      // localhost:port/appareils
       // { path: 'appareils/:id', component: SingleAppareilComponent },      // localhost:port/appareils
       { path: 'auth', component: AuthComponent },
+      { path: 'clients', component: ClientsComponent },
+      { path: 'dashboard', component: DashBoardComponent },
       { path: 'dashboard', component: DashBoardComponent },
       { path: 'not-found', component: FourOhFourComponent },
+      { path: 'produits', component: ProduitsComponent },
       { path: '**', redirectTo: 'not-found' }
     ])
   ],
